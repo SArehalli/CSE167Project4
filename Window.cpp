@@ -1,4 +1,4 @@
-#include "window.h"
+ #include "window.h"
 
 const char* window_title = "GLFW Starter Project";
 Cube * cube;
@@ -13,8 +13,12 @@ glm::vec3 cam_pos(0.0f, 0.0f, 20.0f);		// e  | Position of camera
 glm::vec3 cam_look_at(0.0f, 0.0f, 0.0f);	// d  | This is where the camera looks at
 glm::vec3 cam_up(0.0f, 1.0f, 0.0f);			// up | What orientation "up" is
 
+GLfloat move_speed = 0.5f;                  // movement per input tick
+GLfloat cam_sensitivity = 0.0005f;          // Speed of camera rotation
+
 int Window::width;
 int Window::height;
+
 
 glm::mat4 Window::P;
 glm::mat4 Window::V;
@@ -112,6 +116,9 @@ void Window::display_callback(GLFWwindow* window)
 	// Use the shader of programID
 	glUseProgram(shaderProgram);
 	
+	// Update Camera Position
+	V = glm::lookAt(cam_pos, cam_look_at, cam_up);
+
 	// Render the cube
 	cube->draw(shaderProgram);
 
@@ -133,4 +140,49 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		}
 	}
+	// Unit vector pointing forward
+	glm::vec3 move_dir = glm::normalize(cam_look_at - cam_pos);
+	move_dir.y = 0.0f;
+	// Unit vector pointing right
+	glm::vec3 right    = glm::cross(move_dir, cam_up);
+
+	// WASD movement/strafing
+	if (key == GLFW_KEY_W) {
+		cam_pos += move_speed * move_dir;
+		cam_look_at += move_speed * move_dir;
+	}
+	else if (key == GLFW_KEY_S) {
+		cam_pos -= move_speed * move_dir;
+		cam_look_at -= move_speed * move_dir;
+	}
+	else if (key == GLFW_KEY_D) {
+		cam_pos += move_speed * right;
+		cam_look_at += move_speed * right;
+	}
+	else if (key == GLFW_KEY_A) {
+		cam_pos -= move_speed * right;
+		cam_look_at -= move_speed * right;
+	}
+
+}
+void Window::mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {
+	// Unit vector in view direction
+	glm::vec3 look_dir = glm::normalize(cam_look_at - cam_pos);
+
+	// Rotation vectors for up/down and left/right
+	// (Normal to plane of rotation)
+	glm::vec3 ud_axis = glm::cross(cam_up, look_dir);
+	glm::vec3 lr_axis = -cam_up;
+
+	// Mouse movement
+	glm::vec2 delta = glm::vec2(xPos - Window::width/2.0f, yPos - Window::height/2.0f);
+	
+	// Update view direction
+	GLfloat rotScale = cam_sensitivity * glm::pi<float>();
+	look_dir = glm::mat3(glm::rotate(glm::mat4(1.0f), rotScale * delta.x, lr_axis)) * look_dir;
+	look_dir = glm::mat3(glm::rotate(glm::mat4(1.0f), rotScale * delta.y, ud_axis)) * look_dir;
+	cam_look_at = cam_pos + (20.0f * look_dir);
+	
+	// Reset Cursor Position
+	glfwSetCursorPos(window, Window::width/2.0f, Window::height/2.0f);
 }
