@@ -12,6 +12,7 @@
 #include <GLFW/glfw3.h>
 #include "Cube.h"
 #include "shader.h"
+#include "Skybox.h"
 
 class Window
 {
@@ -29,6 +30,9 @@ public:
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void mouse_pos_callback(GLFWwindow* window, double xPos, double yPos);
 
+
+private:
+	static Skybox *skybox;
 };
 
 #endif
