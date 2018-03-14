@@ -22,5 +22,5 @@ void main()
 {
     // OpenGL maintains the D matrix so you only need to multiply by P, V (aka C inverse), and M
 	pos = position;
-    gl_Position = projection * view * model * vec4(position, 1.0f);
+    gl_Position = projection * mat4(mat3(view)) * model * vec4(position, 1.0f);
 }
