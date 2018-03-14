@@ -47,22 +47,22 @@ Skybox::Skybox(char ** imagePaths)
 	};
 
 	unsigned int indices[] = {
-		1, 2, 4,
+		1, 2, 4, // Front
 		4, 5, 1,
 
-		3, 0, 6,
+		3, 0, 6, // Back
 		6, 7, 3,
 
-		1, 0, 3,
+		1, 0, 3, // Left
 		3, 2, 1,
 
-		6, 5, 4,
+		6, 5, 4, // Right
 		4, 7, 6,
 
-		3, 7, 4,
+		3, 7, 4, // Top
 		4, 2, 3,
 
-		5, 1, 0,
+		5, 1, 0, // Bottom
 		0, 6, 5
 	};
 

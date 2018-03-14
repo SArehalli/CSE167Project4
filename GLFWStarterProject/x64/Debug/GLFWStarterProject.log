@@ -1,1 +1,9 @@
-﻿
+﻿  Window.cpp
+  Skybox.cpp
+c:\users\sarehalli\documents\github\cse167project4\skybox.cpp(162): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  shader.cpp
+  main.cpp
+  Cube.cpp
+  Generating Code...
+  GLFWStarterProject.vcxproj -> C:\Users\sarehalli\Documents\GitHub\CSE167Project4\x64\Debug\GLFWStarterProject.exe
+  GLFWStarterProject.vcxproj -> C:\Users\sarehalli\Documents\GitHub\CSE167Project4\x64\Debug\GLFWStarterProject.pdb (Partial PDB)

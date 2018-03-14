@@ -35,8 +35,8 @@ void Window::initialize_objects()
 
 	cube = new Cube();
 	char * images[] = {
-		"../imgs/rainforest_rt.ppm",
 		"../imgs/rainforest_lf.ppm",
+		"../imgs/rainforest_rt.ppm",
 		"../imgs/rainforest_up.ppm",
 		"../imgs/rainforest_dn.ppm",
 		"../imgs/rainforest_ft.ppm",
