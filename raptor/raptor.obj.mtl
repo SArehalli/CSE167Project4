@@ -1,0 +1,13 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.1.76522261)
+
+newmtl D_L_Forea0
+Kd 0.5843 0.5843 0.5843
+Ka 0.5843 0.5843 0.5843
+Ks 0.898 0.898 0.898
+Ke 0 0 0
+d 1
+Ns 54.8
+illum 2
+map_Kd textures/Raptor.png
+

@@ -27,6 +27,21 @@
     <ClInclude Include="..\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GLshader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
@@ -41,12 +56,24 @@
     <ClCompile Include="..\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shader.frag">
       <Filter>Source Files</Filter>
     </None>
     <None Include="..\shader.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="packages.config" />
+    <None Include="..\skyShader.frag" />
+    <None Include="..\skyShader.vert" />
+    <None Include="..\myOBJShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\myOBJShader.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

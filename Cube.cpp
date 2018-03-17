@@ -72,7 +72,7 @@ void Cube::draw(GLuint shaderProgram)
 
 void Cube::update()
 {
-	spin(1.0f);
+	spin(0.000005f);
 }
 
 void Cube::spin(float deg)
