@@ -1,7 +1,1 @@
-﻿  Window.cpp
-c:\users\sellap\desktop\pa4 try 2\step5begin - copy\cse167project4-master\cse167project4-master\glshader.h(65): warning C4101: 'infoLog': unreferenced local variable
-c:\users\sellap\desktop\pa4 try 2\step5begin - copy\cse167project4-master\cse167project4-master\glshader.h(64): warning C4101: 'success': unreferenced local variable
-c:\users\sellap\desktop\pa4 try 2\step5begin - copy\cse167project4-master\cse167project4-master\packages\assimp.v140.3.2\build\native\include\assimp\defs.h : warning C4819: The file contains a character that cannot be represented in the current code page (932). Save the file in Unicode format to prevent data loss
-c:\users\sellap\desktop\pa4 try 2\step5begin - copy\cse167project4-master\cse167project4-master\mesh.h(76): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-  GLFWStarterProject.vcxproj -> C:\Users\Sellap\Desktop\pa4 try 2\Step5Begin - Copy\CSE167Project4-master\CSE167Project4-master\x64\Debug\GLFWStarterProject.exe
-  GLFWStarterProject.vcxproj -> C:\Users\Sellap\Desktop\pa4 try 2\Step5Begin - Copy\CSE167Project4-master\CSE167Project4-master\x64\Debug\GLFWStarterProject.pdb (Partial PDB)
+﻿
