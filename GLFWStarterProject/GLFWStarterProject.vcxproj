@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\Cube.h" />
     <ClInclude Include="..\GLshader.h" />
+    <ClInclude Include="..\LSystem.h" />
     <ClInclude Include="..\main.h" />
     <ClInclude Include="..\Mesh.h" />
     <ClInclude Include="..\Model.h" />
@@ -30,16 +31,19 @@
     <ClInclude Include="..\stb_image.h" />
     <ClInclude Include="..\Transformation.h" />
     <ClInclude Include="..\Translation.h" />
+    <ClInclude Include="..\Tree.h" />
     <ClInclude Include="..\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\LSystem.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\Node.cpp" />
     <ClCompile Include="..\shader.cpp" />
     <ClCompile Include="..\Skybox.cpp" />
     <ClCompile Include="..\Transformation.cpp" />
     <ClCompile Include="..\Translation.cpp" />
+    <ClCompile Include="..\Tree.cpp" />
     <ClCompile Include="..\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
