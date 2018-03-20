@@ -4,7 +4,6 @@
 #include "Translation.h"
 
 const char* window_title = "GLFW Starter Project";
-Cube * cube;
 GLint shaderProgram, skyShaderProgram;
 
 //OBJ Loader Declarations:
@@ -41,10 +40,8 @@ glm::mat4 Window::V;
 void Window::initialize_objects()
 {
 	// Load the shader program. Make sure you have the correct filepath up top
-	shaderProgram = LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 	skyShaderProgram = LoadShaders(SKY_VERTEX_SHADER_PATH, SKY_FRAGMENT_SHADER_PATH);
 
-	cube = new Cube();
 	char * images[] = {
 		"../imgs/rainforest_lf.ppm",
 		"../imgs/rainforest_rt.ppm",
@@ -54,16 +51,20 @@ void Window::initialize_objects()
 		"../imgs/rainforest_bk.ppm"
 	};
 	skybox = new Skybox(images);
-   objShader = new Shader(myOBJ_VERT_PATH, myOBJ_FRAG_PATH);
 
+   objShader = new Shader(myOBJ_VERT_PATH, myOBJ_FRAG_PATH);
+   Shader *pinkShader = new Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
    // Set up scene
 
    sceneRoot = new Transformation(glm::mat4(1.0f));
    moveControl = new Translation();
    Transformation *dinoRelPos = new Transformation(glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.0f, 1.5f)));
    Model *dino = new Model("../raptor/raptor.obj", objShader);
+   Tree *tree = new Tree(3, objShader);
 
    sceneRoot->addChild(dinoRelPos);
+   sceneRoot->addChild(tree);
+   //sceneRoot->addChild(new Model("../objs/cylinder.obj", objShader));
    dinoRelPos->addChild(moveControl);
    moveControl->addChild(dino);
 }
@@ -71,7 +72,6 @@ void Window::initialize_objects()
 // Treat this as a destructor function. Delete dynamically allocated memory here.
 void Window::clean_up()
 {
-	delete(cube);
 	glDeleteProgram(shaderProgram);
 }
 
@@ -142,7 +142,6 @@ void Window::resize_callback(GLFWwindow* window, int width, int height)
 void Window::idle_callback()
 {
 	// Call the update function the cube
-	cube->update();
 }
 
 void Window::display_callback(GLFWwindow* window)
@@ -158,15 +157,10 @@ void Window::display_callback(GLFWwindow* window)
 	V = glm::lookAt(cam_pos, cam_look_at, cam_up);
 
 	// Render the cube
-	glUseProgram(shaderProgram);
-	cube->draw(shaderProgram);
 
    // Set ObjShader / Render Objs:
-   objShader->use();
-   objShader->setMat4("projection", Window::P);
-   objShader->setMat4("view", Window::V);
-
    sceneRoot->draw(glm::mat4(1.0f));
+
 
 
 

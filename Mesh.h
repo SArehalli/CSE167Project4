@@ -9,6 +9,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include "GLshader.h"
 using namespace std;
 
 struct Vertex {

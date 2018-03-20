@@ -38,6 +38,7 @@
     <ClCompile Include="..\Cube.cpp" />
     <ClCompile Include="..\LSystem.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\Node.cpp" />
     <ClCompile Include="..\shader.cpp" />
     <ClCompile Include="..\Skybox.cpp" />

@@ -1,8 +1,9 @@
 #include "LSystem.h"
 
-LSystem::LSystem(int n)
+LSystem::LSystem(int n) :
+	Transformation(glm::mat4(1.0f))
 {
-	for (int i = 0; i < n; i++) iterate();
+	rep = "X";
 }
 
 
@@ -20,8 +21,9 @@ void LSystem::iterate()
 	rep = out;
 }
 
-void LSystem::draw(glm::mat4 M)
+void LSystem::addRule(char c, std::string s)
 {
+	rules[c].push_back(s);
 }
 
 void LSystem::update()
@@ -31,7 +33,13 @@ void LSystem::update()
 std::string LSystem::apply(char c)
 {
 	std::vector<std::string> options = rules[c];
-	int idx = (int)(rand() * options.size());
-
-	return options[idx];
+	if (options.size() > 0)
+	{
+		int idx = rand() % options.size();
+		return options[idx];
+	}
+	else
+	{
+		return std::string(1, c);
+	}
 }

@@ -10,9 +10,9 @@
 #include <GL/glew.h>
 #endif
 #include <GLFW/glfw3.h>
-#include "Cube.h"
 #include "shader.h"
 #include "Skybox.h"
+#include "Tree.h"
 
 class Window
 {
