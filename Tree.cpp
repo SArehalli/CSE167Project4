@@ -6,7 +6,8 @@ Tree::Tree(int n, Shader *shader) :
 	LSystem(n)
 {
 	this->shader = shader;
-	addRule('X', "-FX");
+	addRule('X', "F[-FX][+FX]");
+	addRule('X', "F[^FX][&FX]");
 	build(n);
 }
 
@@ -23,95 +24,78 @@ void Tree::build(int n)
 	glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	GLfloat branch_len = 1.0f;
-	Transformation *scenePtr = this;
 	Model *branch = new Model("../objs/cylinder2.obj", shader);
+	Model *sphere = new Model("../objs/sphere.obj", shader);
 	Transformation *branchResize = new Transformation(glm::mat4(1.0f));
+	Transformation *scenePtr = branchResize;
 	branchResize->addChild(branch);
-	std::stack<Transformation*> ptrStack;
-	std::stack<glm::vec3> dirStack;
-	std::stack<glm::vec3> rightStack;
 
-	Transformation *rotT, *move;
-	glm::mat4 rot;
+	std::stack<glm::mat4> rotStack;
+	std::stack<glm::mat4> movStack;
+
+	Transformation *rotT, *movT;
+	glm::mat4 rot, mov;
 
 	for (int idx = 0; idx < rep.size(); idx++) {
 		char c = rep[idx];
-		Transformation *move = new Transformation(glm::translate(glm::mat4(1.0f), dir * branch_len));
+		movT = new Transformation(mov);
 		switch (c) 
 		{
 		case 'F':
-			scenePtr->addChild(branchResize);
+			movT = new Transformation(mov);
+			rotT = new Transformation(rot);
+			this->addChild(movT);
+			movT->addChild(rotT);
+			rotT->addChild(branchResize);
 		case 'f':
-			scenePtr->addChild(move);
-			scenePtr = move;
+			mov = glm::translate(glm::mat4(1.0f), dir * branch_len) * mov;
 			break;
 
 		case '[':
-			ptrStack.push(scenePtr);
-			dirStack.push(dir);
-			rightStack.push(right);
+			rotStack.push(rot);
+			movStack.push(mov);
 			break;
 		case ']':
-			scenePtr = ptrStack.top();
-			right = rightStack.top();
-			dir = dirStack.top();
-			ptrStack.pop();
-			rightStack.pop();
-			dirStack.pop();
+			mov = movStack.top();
+			rot = rotStack.top();
+			movStack.pop();
+			rotStack.pop();
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 
 		case '+':
-			rot = glm::rotate(glm::mat4(1.0f), angle, glm::cross(dir, right));
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), angle, glm::cross(dir, right)) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '-':
-			rot = glm::rotate(glm::mat4(1.0f), -angle, glm::cross(dir, right));
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), -angle, glm::cross(dir, right)) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '&':
-			rot = glm::rotate(glm::mat4(1.0f), angle, right);
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), angle, right) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '^':
-			rot = glm::rotate(glm::mat4(1.0f), -angle, right);
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), -angle, right) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '/':
-			rot = glm::rotate(glm::mat4(1.0f), angle, -dir);
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), angle, -dir) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '\\':
-			rot = glm::rotate(glm::mat4(1.0f), angle, dir);
-			rotT = new Transformation(rot);
-			scenePtr->addChild(rotT);
-			right = glm::mat3(rot) * right;
-			dir = glm::mat3(rot) * dir;
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), angle, dir) * rot;
+			dir = glm::mat3(rot) * glm::vec3(0.0f, 1.0f, 0.0f);
+			right = glm::mat3(rot) * glm::vec3(1.0f, 0.0f, 0.0f);
 			break;
 		case '|':
-			rotT = new Transformation(glm::rotate(glm::mat4(1.0f), glm::pi<float>(), right));
-			scenePtr->addChild(rotT);
-			scenePtr = rotT;
+			rot = glm::rotate(glm::mat4(1.0f), glm::pi<float>(), right) * rot;
 			dir = -dir;
 			right = -right;
 			break;
