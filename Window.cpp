@@ -172,6 +172,7 @@ void Window::idle_callback()
       glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 0);
    }
    */
+   glUseProgram(boxShaderProgram);
    glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), collide);
 }
 
@@ -224,7 +225,7 @@ void Window::display_callback(GLFWwindow* window)
 
    //Collision Detection + Flag:
    
-   /*
+   
    for (int i = 0; i < Window::otherMin.size(); ++i) {
       for (int j = 1; j < Window::otherMin.size(); ++j) {
          if ((Window::otherMax[i].x < Window::otherMin[j].x) || (Window::otherMin[i].x > Window::otherMax[j].x)) {
@@ -240,7 +241,7 @@ void Window::display_callback(GLFWwindow* window)
          collide = true;
 
       }
-   */
+   }
    
 
    Window::boxID = 0; // resets ID counter from when we drew SceneRoot;
