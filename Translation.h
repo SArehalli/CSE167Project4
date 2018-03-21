@@ -6,7 +6,6 @@ class Translation :
 {
 public:
 	Translation();
-	void update();
 	~Translation();
 
 	void moveBy(glm::vec3 dx);

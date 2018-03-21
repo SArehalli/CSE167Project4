@@ -14,6 +14,10 @@ void Node::update()
 {
 }
 
+void Node::regenerate()
+{
+}
+
 Node::~Node()
 {
 }

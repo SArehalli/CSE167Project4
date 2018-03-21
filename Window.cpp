@@ -60,11 +60,10 @@ void Window::initialize_objects()
    moveControl = new Translation();
    Transformation *dinoRelPos = new Transformation(glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.0f, 1.5f)));
    Model *dino = new Model("../raptor/raptor.obj", objShader);
-   Tree *tree = new Tree(3, objShader);
+   Tree *tree = new Tree(5, objShader);
 
    sceneRoot->addChild(dinoRelPos);
    sceneRoot->addChild(tree);
-   //sceneRoot->addChild(new Model("../objs/cylinder.obj", objShader));
    dinoRelPos->addChild(moveControl);
    moveControl->addChild(dino);
 }
@@ -181,6 +180,10 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 			// Close the window. This causes the program to also terminate.
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		}
+		if (key == GLFW_KEY_R) {
+			srand(time(NULL));
+			sceneRoot->regenerate();
+		}
 	}
 	// Unit vector pointing forward
 	glm::vec3 move_dir = glm::normalize(cam_look_at - cam_pos);
@@ -194,21 +197,22 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 		cam_look_at += move_speed * move_dir;
 		moveControl->moveBy(move_speed * move_dir);
 	}
-	else if (key == GLFW_KEY_S) {
+	if (key == GLFW_KEY_S) {
 		cam_pos -= move_speed * move_dir;
 		cam_look_at -= move_speed * move_dir;
 		moveControl->moveBy(-move_speed * move_dir);
 	}
-	else if (key == GLFW_KEY_D) {
+	if (key == GLFW_KEY_D) {
 		cam_pos += move_speed * right;
 		cam_look_at += move_speed * right;
 		moveControl->moveBy(move_speed * right);
 	}
-	else if (key == GLFW_KEY_A) {
+	if (key == GLFW_KEY_A) {
 		cam_pos -= move_speed * right;
 		cam_look_at -= move_speed * right;
 		moveControl->moveBy(-move_speed * right);
 	}
+
 
 }
 void Window::mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {

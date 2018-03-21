@@ -11,11 +11,13 @@ class Tree :
 {
 public:
 	Tree(int n, Shader *shader);
+	void regenerate();
 	~Tree();
 	
 private:
 	void build(int n);
 	Shader *shader;
+	int n;
 };
 
 #endif // !TREE

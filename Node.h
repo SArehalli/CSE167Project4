@@ -11,6 +11,7 @@ public:
 	Node();
 	virtual void draw(glm::mat4 M);
 	virtual void update();
+	virtual void regenerate();
 	~Node();
 };
 

@@ -16,6 +16,13 @@ void Transformation::update()
 	}
 }
 
+void Transformation::regenerate()
+{
+	for (int i = 0; i < children.size(); i++) {
+		children.at(i)->regenerate();
+	}
+}
+
 void Transformation::addChild(Node * child)
 {
 	children.push_back(child);

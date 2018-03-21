@@ -6,6 +6,7 @@ class Transformation :
 public:
 	void draw(glm::mat4 M);
 	void update();
+	void regenerate();
 
 	void addChild(Node* child);
 	void removeChild(Node* child);

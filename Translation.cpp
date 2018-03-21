@@ -5,12 +5,6 @@ Translation::Translation()
 {
 }
 
-void Translation::update()
-{
-}
-
-
-
 Translation::~Translation()
 {
 }
