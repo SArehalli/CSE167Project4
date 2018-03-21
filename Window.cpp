@@ -8,6 +8,7 @@ GLint shaderProgram, skyShaderProgram, objShaderProgram, rimShaderProgram, boxSh
 //OBJ Loader Declarations:
 Transformation *sceneRoot;
 Translation *moveControl;
+Transformation *dinoRelPos;
 
 // Demo Toggles:
 int Window::shaderToggle = 0; // toggle Rim Shading
@@ -79,7 +80,7 @@ void Window::initialize_objects()
 
    sceneRoot = new Transformation(glm::mat4(1.0f));
    moveControl = new Translation();
-   Transformation *dinoRelPos = new Transformation(glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.0f, 1.5f)));
+   dinoRelPos = new Transformation(glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.0f, 1.5f)));
    dino = new Model("../raptor/raptor.obj", objShaderProgram);
    
    //Model *dino = new Model("../raptor/raptor.obj", objShaderProgram);
@@ -225,7 +226,7 @@ void Window::display_callback(GLFWwindow* window)
 
    //Collision Detection + Flag:
    
-   
+   /*
    for (int i = 0; i < Window::otherMin.size(); ++i) {
       for (int j = 1; j < Window::otherMin.size(); ++j) {
          if ((Window::otherMax[i].x < Window::otherMin[j].x) || (Window::otherMin[i].x > Window::otherMax[j].x)) {
@@ -242,7 +243,7 @@ void Window::display_callback(GLFWwindow* window)
 
       }
    }
-   
+   */
 
    Window::boxID = 0; // resets ID counter from when we drew SceneRoot;
    Window::otherMin.clear();
