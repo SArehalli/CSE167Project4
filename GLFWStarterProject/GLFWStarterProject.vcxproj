@@ -23,6 +23,7 @@
     <ClInclude Include="..\GLshader.h" />
     <ClInclude Include="..\LSystem.h" />
     <ClInclude Include="..\main.h" />
+    <ClInclude Include="..\Maze.h" />
     <ClInclude Include="..\Mesh.h" />
     <ClInclude Include="..\Model.h" />
     <ClInclude Include="..\Node.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\Cube.cpp" />
     <ClCompile Include="..\LSystem.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Maze.cpp" />
     <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\Node.cpp" />
     <ClCompile Include="..\shader.cpp" />

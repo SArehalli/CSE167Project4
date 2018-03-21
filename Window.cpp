@@ -61,9 +61,10 @@ void Window::initialize_objects()
    Transformation *dinoRelPos = new Transformation(glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.0f, 1.5f)));
    Model *dino = new Model("../raptor/raptor.obj", objShader);
    Tree *tree = new Tree(5, objShader);
+   Maze *maze = new Maze(10, objShader);
 
    sceneRoot->addChild(dinoRelPos);
-   sceneRoot->addChild(tree);
+   sceneRoot->addChild(maze);
    dinoRelPos->addChild(moveControl);
    moveControl->addChild(dino);
 }

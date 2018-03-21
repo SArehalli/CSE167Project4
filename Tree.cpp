@@ -10,7 +10,7 @@ Tree::Tree(int n, Shader *shader) :
 	addRule('X', "F[-FX][+FX]");
 	addRule('X', "F[^FX][&FX]");
 	addRule('X', "F[^FX]//////[^FX]/////[^FX]");
-	build(n);
+	build();
 }
 
 void Tree::regenerate()
@@ -18,15 +18,14 @@ void Tree::regenerate()
 	this->rep = "X";
 	for (int i = 0; i < children.size(); i++) delete children.at(i);
 	children.clear();
-
-	build(n);
+	build();
 }
 
 Tree::~Tree()
 {
 }
 
-void Tree::build(int n)
+void Tree::build()
 {
 	for (int i = 0; i < n; i++) iterate();
 

@@ -14,6 +14,7 @@
 #include "shader.h"
 #include "Skybox.h"
 #include "Tree.h"
+#include "Maze.h"
 
 class Window
 {

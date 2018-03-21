@@ -15,7 +15,7 @@ public:
 	~Tree();
 	
 private:
-	void build(int n);
+	void build();
 	Shader *shader;
 	int n;
 };
