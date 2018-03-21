@@ -15,8 +15,9 @@ Maze::Maze(int n, GLint shader) :
 		}
 	}
 
-	addRule('X', "[FG]-[FG]-[FG]-[FG]");
+	addRule('X', "F[FG]-[FTF]-[FG]-[FG]");
 	addRule('G', "FG");
+	addRule('G', "[-FTF]");
 	addRule('G', "-FG");
 	addRule('G', "+FG");
 	addRule('G', "-[FG]+[FG]");
@@ -82,19 +83,19 @@ void Maze::build()
 				switch (dir)
 				{
 				case 0:
-					maze[pos.x][pos.y] = 1;
+					maze[pos.x][pos.y] |= 1;
 					pos.y++;
 					break;
 				case 1:
-					maze[pos.x][pos.y] = 1;
+					maze[pos.x][pos.y] |= 1;
 					pos.x++;
 					break;
 				case 2:
-					maze[pos.x][pos.y] = 1;
+					maze[pos.x][pos.y] |= 1;
 					pos.y--;
 					break;
 				case 3:
-					maze[pos.x][pos.y] = 1;
+					maze[pos.x][pos.y] |= 1;
 					pos.x--;
 					break;
 				}
@@ -106,6 +107,7 @@ void Maze::build()
 			break;
 		case '+':
 			dir = (dir + 1) % 4;
+			break;
 		case '[':
 			dirStack.push(dir);
 			posStack.push(pos);
@@ -115,6 +117,9 @@ void Maze::build()
 			pos = posStack.top();
 			dirStack.pop();
 			posStack.pop();
+			break;
+		case 'T':
+			maze[pos.x][pos.y] = 3;
 		}
 	}
 	// DEBUG 
@@ -167,6 +172,14 @@ void Maze::build()
 				}
 				j = j_ - 1;
 
+			}
+			else if (maze[i][j] == 3)
+			{
+				glm::mat4 move = glm::translate(glm::mat4(1.0f), glm::vec3(2 * i - MAZE_WIDTH + 1, 0, 2 * j - MAZE_WIDTH + 1));
+				Transformation *transform = new Transformation(move);
+				Tree *tree = new Tree(5, shader);
+				transform->addChild(tree);
+				this->addChild(transform);
 			}
 		}
 	}
