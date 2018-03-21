@@ -17,8 +17,22 @@ uniform mat4 projection;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0);
+	mat3 scale = mat3(model);
+	int x,y;
+	if (abs(normal.x) >= 0.5) {
+		x = 1;
+		y = 2;
+	} else if (abs(normal.z) >= 0.5) {
+		x = 1;
+		y = 0;
+	} else {
+		x = 0;
+		y = 2;
+	}
     TexCoords = aTexCoords;
+	TexCoords.x *= scale[x][x];
+	TexCoords.y *= scale[y][y];
+    gl_Position = projection * view * model * vec4(position, 1.0);
 
     //gl_Position = projection * modelview * vec4(position.x, position.y, position.z, 1.0);
     //sampleExtraOutput = 1.0f;

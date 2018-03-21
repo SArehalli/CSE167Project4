@@ -2,11 +2,12 @@
 
 
 
-Maze::Maze(int n, GLint shader) :
+Maze::Maze(int n, GLint shader, GLint treeShader) :
    LSystem(n)
 {
    this->n = n;
    this->shader = shader;
+   this->treeShader = treeShader;
    for (int i = 0; i < MAZE_WIDTH; i++)
    {
       for (int j = 0; j < MAZE_WIDTH; j++)
@@ -177,7 +178,7 @@ void Maze::build()
          {
             glm::mat4 move = glm::translate(glm::mat4(1.0f), glm::vec3(2 * i - MAZE_WIDTH + 1, 0, 2 * j - MAZE_WIDTH + 1));
             Transformation *transform = new Transformation(move);
-            Tree *tree = new Tree(5, shader);
+            Tree *tree = new Tree(5, treeShader);
             transform->addChild(tree);
             this->addChild(transform);
          }

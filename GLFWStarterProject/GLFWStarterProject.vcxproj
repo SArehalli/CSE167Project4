@@ -51,6 +51,8 @@
   <ItemGroup>
     <None Include="..\boxShader.frag" />
     <None Include="..\boxShader.vert" />
+    <None Include="..\cubeShader.frag" />
+    <None Include="..\cubeShader.vert" />
     <None Include="..\myOBJShader.frag" />
     <None Include="..\myOBJShader.vert" />
     <None Include="..\myRimShader.frag" />

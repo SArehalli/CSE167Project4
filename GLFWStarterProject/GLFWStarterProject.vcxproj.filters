@@ -124,5 +124,7 @@
     <None Include="..\boxShader.vert">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="..\cubeShader.vert" />
+    <None Include="..\cubeShader.frag" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "Translation.h"
 
 const char* window_title = "GLFW Starter Project";
-GLint shaderProgram, skyShaderProgram, objShaderProgram, rimShaderProgram, boxShaderProgram;
+GLint shaderProgram, skyShaderProgram, objShaderProgram, rimShaderProgram, boxShaderProgram, cubeShaderProgram;
 
 //OBJ Loader Declarations:
 Transformation *sceneRoot;
@@ -28,6 +28,8 @@ int Window::boxToggle = 0; // toggles bounding boxes
 // Box Shader
 #define myBOX_VERT_PATH "../boxShader.vert"
 #define myBOX_FRAG_PATH "../boxShader.frag"
+#define CUBE_VERT_PATH "../cubeShader.vert"
+#define CUBE_FRAG_PATH "../cubeShader.frag"
 
 Skybox *Window::skybox;
 
@@ -63,6 +65,7 @@ void Window::initialize_objects()
    objShaderProgram = LoadShaders(myOBJ_VERT_PATH, myOBJ_FRAG_PATH);
    rimShaderProgram = LoadShaders(myRIM_VERT_PATH, myRIM_FRAG_PATH);
    boxShaderProgram = LoadShaders(myBOX_VERT_PATH, myBOX_FRAG_PATH);
+   cubeShaderProgram = LoadShaders(CUBE_VERT_PATH, CUBE_FRAG_PATH);
 
 	char * images[] = {
 		"../imgs/rainforest_lf.ppm",
@@ -85,7 +88,7 @@ void Window::initialize_objects()
    
    //Model *dino = new Model("../raptor/raptor.obj", objShaderProgram);
    Tree *tree = new Tree(5, objShaderProgram);
-   Maze *maze = new Maze(10, objShaderProgram);
+   Maze *maze = new Maze(10, cubeShaderProgram, objShaderProgram);
 
    sceneRoot->addChild(dinoRelPos);
    sceneRoot->addChild(maze);

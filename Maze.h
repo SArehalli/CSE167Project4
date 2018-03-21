@@ -11,13 +11,13 @@ class Maze :
    public LSystem
 {
 public:
-   Maze(int n, GLint shader);
+   Maze(int n, GLint shader, GLint treeShader);
    ~Maze();
    void regenerate();
 
 private:
    int n;
-   GLint shader;
+   GLint shader, treeShader;
    int maze[MAZE_WIDTH][MAZE_WIDTH];
 
    void build();
