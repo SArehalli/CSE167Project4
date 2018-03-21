@@ -45,6 +45,15 @@ int Window::height;
 glm::mat4 Window::P;
 glm::mat4 Window::V;
 Model* dino;
+vector<glm::vec3> Window::dinoMin;
+vector<glm::vec3> Window::dinoMax;
+vector<glm::vec3> Window::otherMin;
+vector<glm::vec3> Window::otherMax;
+int Window::boxID = 0;
+bool collide = false;
+int collideToggle = 0;
+
+
 
 void Window::initialize_objects()
 {
@@ -155,16 +164,24 @@ void Window::resize_callback(GLFWwindow* window, int width, int height)
 
 void Window::idle_callback()
 {
-	// Call the update function the cube
+   /*
+   if (collide == true) {
+      glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 1);
+   }
+   else {
+      glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 0);
+   }
+   */
+   glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), collide);
 }
 
 void Window::display_callback(GLFWwindow* window)
 {
-	// Clear the color and depth buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // Clear the color and depth buffers
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    //Toggle Shaders: 0 = no rim shading, 1 = Rim Shading
-   if (shaderToggle == 0){
+   if (shaderToggle == 0) {
       dino->shader = objShaderProgram;
    }
    else if (shaderToggle == 1) {
@@ -174,14 +191,14 @@ void Window::display_callback(GLFWwindow* window)
    //dino->shader = objShaderProgram;
 
 
-	// Draw Skybox
-	glUseProgram(skyShaderProgram);
-	skybox->draw(skyShaderProgram);
-	
-	// Update Camera Position
-	V = glm::lookAt(cam_pos, cam_look_at, cam_up);
+   // Draw Skybox
+   glUseProgram(skyShaderProgram);
+   skybox->draw(skyShaderProgram);
 
-	// Render the cube
+   // Update Camera Position
+   V = glm::lookAt(cam_pos, cam_look_at, cam_up);
+
+   // Render the cube
 
    // Set ObjShader / Render Objs:
    glUseProgram(rimShaderProgram);
@@ -196,6 +213,7 @@ void Window::display_callback(GLFWwindow* window)
    glUniformMatrix4fv(glGetUniformLocation(boxShaderProgram, "view"), 1, GL_FALSE, &Window::V[0][0]);
    glUniformMatrix4fv(glGetUniformLocation(boxShaderProgram, "projection"), 1, GL_FALSE, &Window::P[0][0]);
 
+   
    //Toggle BBoxes: 0 = no BBs, 1 = yes BBs
    if (boxToggle == 0) {
    }
@@ -204,9 +222,42 @@ void Window::display_callback(GLFWwindow* window)
    }
    //sceneRoot->DrawWBB(rimShaderProgram, boxShaderProgram, glm::mat4(1.0f));
 
-   //Collision Flag:
-   glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 1);
-   glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 0);
+   //Collision Detection + Flag:
+   
+   /*
+   for (int i = 0; i < Window::otherMin.size(); ++i) {
+      for (int j = 1; j < Window::otherMin.size(); ++j) {
+         if ((Window::otherMax[i].x < Window::otherMin[j].x) || (Window::otherMin[i].x > Window::otherMax[j].x)) {
+            continue;
+         }
+         if ((Window::otherMax[i].y < Window::otherMin[j].y) || (Window::otherMin[i].y > Window::otherMax[j].y)) {
+            continue;
+         }
+         if ((Window::otherMax[i].z < Window::otherMin[j].z) || (Window::otherMin[i].z > Window::otherMax[j].z)) {
+            continue;
+         }
+         // all 3 axes overlap, so we have a collision
+         collide = true;
+
+      }
+   */
+   
+
+   Window::boxID = 0; // resets ID counter from when we drew SceneRoot;
+   Window::otherMin.clear();
+   Window::otherMax.clear();
+
+   
+   /*
+   if (collide == true) {
+      glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 1);
+   }
+   else {
+      glUniform1i(glGetUniformLocation(boxShaderProgram, "collisionFlag"), 0);
+   }
+   */
+   
+   std::cout << "collide status = " << collide << endl;
 
 
 	// Gets events, including input such as keyboard and mouse or window resizing
@@ -248,6 +299,16 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
          else {
             boxToggle = 0;
             std::cout << "boxToggle = " << boxToggle << "\n";
+         }
+      }
+      if (key == GLFW_KEY_C) {//"C" to force toggle visible Collision Color
+         if (collideToggle == 0) {
+            collide = true;
+            collideToggle = 1;
+         }
+         else {
+            collideToggle = 0;
+            collide = false;
          }
       }
 	}

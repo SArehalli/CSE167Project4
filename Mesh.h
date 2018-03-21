@@ -99,6 +99,11 @@ public:
 
       // Apply object's transformation matrix
       glm::mat4 bbToWorld = obj2World * transform;
+
+
+
+
+
       glUseProgram(bbShader);
       glUniformMatrix4fv(glGetUniformLocation(bbShader, "model"), 1, GL_FALSE, &bbToWorld[0][0]);
       //glUniformMatrix4fv(glGetUniformLocation(bbShader, "view"), 1, GL_FALSE, &Window::V[0][0]);

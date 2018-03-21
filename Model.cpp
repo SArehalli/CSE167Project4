@@ -58,6 +58,22 @@ void Model::DrawWBB(GLint shaderOBJ, GLint shaderBB, glm::mat4 obj2World) {
    
    modelBB = meshes[0].Draw(this->shader, shaderBB, obj2World);
    //std::cout << "Testing: bb2World[3].x of this mesh is: " << modelBB.bb2World[3].x << "\n";
+
+   //Collision Detection: load Bounding Box info into static Window::vector<vec3>s
+   // save min/Max for collision check
+   Window::otherMin.push_back(modelBB.bbMin);
+   Window::otherMax.push_back(modelBB.bbMax);
+   /*
+   Window::otherMin[Window::boxID].x = modelBB.bbMin.x;
+   Window::otherMin[Window::boxID].y = modelBB.bbMin.y;
+   Window::otherMin[Window::boxID].z = modelBB.bbMin.z;
+
+   Window::otherMax[Window::boxID].x = modelBB.bbMax.x;
+   Window::otherMax[Window::boxID].y = modelBB.bbMax.y;
+   Window::otherMax[Window::boxID].z = modelBB.bbMax.z;
+
+   Window::boxID++;
+   */
 }
 
 void Model::update() {}

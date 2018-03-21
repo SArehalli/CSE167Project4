@@ -36,6 +36,15 @@ public:
    static int shaderToggle;
    static int boxToggle;
 
+   // Collision Lists:
+   static vector<glm::vec3> dinoMin;
+   static vector<glm::vec3> dinoMax;
+
+   static vector<glm::vec3> otherMin;
+   static vector<glm::vec3> otherMax;
+
+   static int boxID;
+
 
 private:
 	static Skybox *skybox;
